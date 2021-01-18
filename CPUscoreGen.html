@@ -28506,8 +28506,8 @@ CPU
                 var frequency = Number(data.rows[row].cells[19].innerText)
                 var canOverclock = data.rows[row].cells[23].innerText
                 var wattage = Number(data.rows[row].cells[24].innerText)
-                //var voltage = Number(data.rows[row].cells[25].innerText)
                 var defaultMemorySpeed = Number(data.rows[row].cells[26].innerText)
+                var maxFreq = Number(data.rows[row].cells[28].innerText)
                 var maxMemoryChannels = Number(data.rows[row].cells[35].innerText)
                 var cpuSocket = data.rows[row].cells[37].innerText
                 var coreClockMultiplier = Number(data.rows[row].cells[47].innerText)
@@ -28540,11 +28540,35 @@ CPU
                             ) * 298
                         )
 
+                var maxScoreOC = 
+                    Math.floor
+                        (
+                            (
+                                (coreClockMultiplier * maxFreq) +
+                                (memChannelsMultiplier * maxMemoryChannels) +
+                                (memClockMultiplier * defaultMemorySpeed) +
+                                (finalAdjustment)
+                            ) * 298
+                        )
+                
                 results[fullName] = {}
                 results[fullName].fullName = fullName
+                results[fullName].inShop = inShop
+                results[fullName].frequency = frequency
+                results[fullName].maxFrequency = maxFreq
                 results[fullName].basicCPUScore = basicCPUScore
+                results[fullName].maxCPUScore = maxScoreOC
+                results[fullName].canOverclock = canOverclock
+                results[fullName].wattage = wattage
+                //results[fullName].voltage = voltage
+                results[fullName].defaultMemorySpeed = defaultMemorySpeed
+                results[fullName].maxMemoryChannels = maxMemoryChannels
+                results[fullName].cpuSocket = cpuSocket
+                results[fullName].coreClockMultiplier = coreClockMultiplier
+                results[fullName].memChannelsMultiplier = memChannelsMultiplier
+                results[fullName].memClockMultiplier = memClockMultiplier
+                results[fullName].finalAdjustment = finalAdjustment
                 results[fullName].partRankingScore = partRankingScore
-                results[fullName].isInShop = inShop
             }
         }
 
